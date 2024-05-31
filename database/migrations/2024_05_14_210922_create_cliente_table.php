@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('ap_materno');
             $table->string('telefono', 9);
             $table->string('direccion');
-            $table->integer('estado')->default(1);
+            //$table->integer('estado')->default(1);
             $table->timestamps();
         });
     }

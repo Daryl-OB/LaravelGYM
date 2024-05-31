@@ -1,21 +1,104 @@
 @extends('adminlte::page')
 
-@section('title', 'Gimnasio')
+{{-- @section('title', 'Home') --}}
 
 @section('content_header')
+
+    <div class="py-3">
+        <h1 class="display-5">¡Estás en FitFusion!</h1>
+        <p class="lead">El mejor sistema para llevar a la cima tu negocio fitness.</p>
+    </div>
+
 
 @stop
 
 @section('content')
-    <div class="jumbotron">
-        <h1 class="display-4">¡Bienvenido a nuestro Gimnasio!</h1>
-        <p class="lead">Estamos comprometidos en ayudarte a alcanzar tus metas de fitness.</p>
-        <hr class="my-4">
-        <p>Descubre nuestras clases, entrenamientos personalizados y más.</p>
-        <a class="btn btn-primary btn-lg" href="#" role="button">Explorar Clases</a>
+
+    
+    <div class="row mb-5">
+        {{-- Total de categorias --}}
+        <div class="col-md-4">
+            <div class="small-box bg-gradient-secondary">
+                <div class="inner">
+                    <h3>{{$totalCategoriasActivas}}</h3>
+                    <p>Categorias disponibles</p>
+                </div>
+                <div class="icon">
+                    <i class="fas fa-layer-group"></i>
+                </div>
+                <a href="{{route('categorias.index')}}" class="small-box-footer">
+                    Ver todas <i class="fas fa-arrow-circle-right"></i>
+                </a>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            {{-- Total de promociones --}}
+            <div class="small-box bg-gradient-success">
+                <div class="inner">
+                    <h3>{{$totalPromocionesActivas}}</h3>
+                    <p>Promociones activas</p>
+                </div>
+                <div class="icon">
+                    <i class="fas fa-tag"></i>
+                </div>
+                <a href="{{route('promociones.index')}}" class="small-box-footer">
+                    Ver todas <i class="fas fa-arrow-circle-right"></i>
+                </a>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            {{-- Total de clientes --}}
+            <div class="small-box bg-gradient-primary">
+                <div class="inner">
+                    <h3>{{$totalClientes}}</h3>
+                    <p>Clientes registrados</p>
+                </div>
+                <div class="icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <a href="{{route('clientes.index')}}" class="small-box-footer">
+                    Ver todos <i class="fas fa-arrow-circle-right"></i>
+                </a>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            {{-- Total de metodos de pago --}}
+            <div class="small-box bg-gradient-danger">
+                <div class="inner">
+                    <h3>{{$totalMetodos}}</h3>
+                    <p>Metodos de pago establecidos</p>
+                </div>
+                <div class="icon">
+                    <i class="fas fa-wallet"></i>
+                </div>
+                <a href="{{route('metodos.index')}}" class="small-box-footer">
+                    Ver todos <i class="fas fa-arrow-circle-right"></i>
+                </a>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            {{-- Total de inscripciones (que no vencen aún) --}}
+            <div class="small-box bg-gradient-warning">
+                <div class="inner">
+                    <h3>999</h3>
+                    <p>Inscripciones vigentes</p>
+                </div>
+                <div class="icon">
+                    <i class="fas fa-clipboard"></i>
+                </div>
+                <a href="#" class="small-box-footer">
+                    Ver todas <i class="fas fa-arrow-circle-right"></i>
+                </a>
+            </div>
+        </div>
+
     </div>
 
-    <div class="row">
+    <div class="row mb-5">
         <div class="col-md-4">
             <div class="card">
                 <img src="https://thumbs.dreamstime.com/b/man-weight-training-equipment-sport-gym-22843139.jpg"
@@ -90,70 +173,5 @@
             </div>
         </div>
     </div>
-
-    <div class="row">
-        <div class="col-md-6">
-            <div class="small-box bg-info">
-                <div class="inner">
-                    <h3>150</h3>
-                    <p>New Orders</p>
-                </div>
-                <div class="icon">
-                    <i class="fas fa-shopping-cart"></i>
-                </div>
-                <a href="#" class="small-box-footer">
-                    More info <i class="fas fa-arrow-circle-right"></i>
-                </a>
-            </div>
-        </div>
-
-        <div class="col-md-6">
-            <div class="small-box bg-gradient-success">
-                <div class="inner">
-                    <h3>44</h3>
-                    <p>User Registrations</p>
-                </div>
-                <div class="icon">
-                    <i class="fas fa-user-plus"></i>
-                </div>
-                <a href="#" class="small-box-footer">
-                    More info <i class="fas fa-arrow-circle-right"></i>
-                </a>
-            </div>
-        </div>
-
-        <div class="col-md-6">
-            <div class="small-box bg-warning">
-                <div class="inner">
-                    <h3>44</h3>
-                    <p>User Registrations</p>
-                </div>
-                <div class="icon">
-                    <i class="fas fa-user-plus"></i>
-                </div>
-                <a href="#" class="small-box-footer">
-                    More info <i class="fas fa-arrow-circle-right"></i>
-                </a>
-            </div>
-        </div>
-
-        <div class="col-md-6">
-            <div class="small-box bg-danger">
-                <div class="inner">
-                    <h3>65</h3>
-                    <p>Unique Visitors</p>
-                </div>
-                <div class="icon">
-                    <i class="fas fa-chart-pie"></i>
-                </div>
-                <a href="#" class="small-box-footer">
-                    More info <i class="fas fa-arrow-circle-right"></i>
-                </a>
-            </div>
-        </div>
-
-    </div>
-
-
 
 @stop

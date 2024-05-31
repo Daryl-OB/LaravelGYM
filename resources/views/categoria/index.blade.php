@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Gimnasio - Categorias')
+@section('title', 'Categorias')
 
 @section('content_header')
     <h1>Categorías</h1>
@@ -47,21 +47,31 @@
                             @endif
                         </td>
                         <td>
-                            <div class="btn-group" role="group" aria-label="Acciones">
-                                <a href="{{ route('categorias.edit', $categoria->id) }}"
-                                    class="btn btn-warning mr-1 rounded"><i class="fas fa-edit"></i></a>
-                                <!-- Button abrit modal eliminar -->
-                                <button type="button" id="" class="btn btn-danger ml-1 rounded btnEliminar"
-                                    data-toggle="modal" data-target="#modalEliminarCategoria"
-                                    data-nombre="{{ $categoria->nombre }}">
-                                    <i class="fas fa-trash-alt"></i>
-                                </button>
-                            </div>
+                            <div class="d-flex justify-content-center">
+                                <div class="btn-group" role="group" aria-label="Acciones">
+                                    <a href="{{ route('categorias.edit', $categoria->id) }}"
+                                        class="btn btn-warning mr-1 rounded"><i class="fas fa-edit"></i></a>
+                                    <!-- Button abrit modal eliminar -->
+                                    <button type="button" id="" class="btn btn-danger ml-1 rounded btnEliminar"
+                                        data-toggle="modal" data-target="#modalEliminarCategoria"
+                                        data-nombre="{{ $categoria->nombre }}">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </button>
+                                </div>
+                            </div>     
                         </td>
                     </tr>
                 @endforeach
             </tbody>
         </table>
+    </div>
+
+    <div class="d-flex justify-content-center">
+        <div>
+            <p>Mostrando {{ $categorias->firstItem() }} - {{ $categorias->lastItem() }} de {{ $categorias->total() }} registros
+            </p>
+            {{ $categorias->links('pagination::bootstrap-4', ['only' => ['paginator']]) }}
+        </div>
     </div>
 
     <!-- Modal Eliminar Categoria -->
@@ -81,11 +91,11 @@
                 </div>
 
                 <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                     {{-- FORMULARIO PARA MANDAR EL ID A ELIMNAR --}}
                     <form action="" method="POST">
                         @csrf
                         @method('DELETE')
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                         <button type="submit" class="btn btn-danger">Eliminar</button>
                     </form>
                 </div>
@@ -94,14 +104,9 @@
     </div>
     {{-- Fin del modal eliminar --}}
 
+@stop
 
-    <div class="text-center">
-        <p>Mostrando {{ $categorias->firstItem() }} - {{ $categorias->lastItem() }} de {{ $categorias->total() }} registros
-        </p>
-        {{ $categorias->links('pagination::bootstrap-4', ['only' => ['paginator']]) }}
-    </div>
-
-
+@section('js')
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             var botonesEliminar = document.querySelectorAll('.btnEliminar');
@@ -114,5 +119,4 @@
             });
         });
     </script>
-
 @stop

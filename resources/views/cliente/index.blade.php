@@ -23,7 +23,6 @@
                     <th>Apellido materno</th>
                     <th>Teléfono</th>
                     <th>Dirección</th>
-                    <th>Estado</th>
                     <th class="text-center">Acciones</th>
                 </tr>
             </thead>
@@ -37,13 +36,6 @@
                         <td>{{ $cliente->ap_materno }}</td>
                         <td>{{ $cliente->telefono }}</td>
                         <td>{{ $cliente->direccion }}</td>
-                        <td class="text-center">
-                            @if ($cliente->estado == 1)
-                                <span class="badge badge-success">Activo</span>
-                            @else
-                                <span class="badge badge-danger">Inactivo</span>
-                            @endif
-                        </td>
                         <td>
                             <div class="btn-group" role="group" aria-label="Acciones">
                                 <a href="#" class="btn btn-warning mr-1 rounded"><i class="fas fa-edit"></i></a>

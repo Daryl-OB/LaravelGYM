@@ -22,8 +22,8 @@ class ClienteFactory extends Factory
             'ap_paterno' => $this->faker->lastName(),
             'ap_materno' => $this->faker->lastName(),
             'telefono' => $this->faker->numerify('9########'),
-            'direccion' => $this->faker->sentence(),
-            'estado' => $this->faker->randomElement([1,0])
+            'direccion' => $this->faker->sentence()
+            //'estado' => $this->faker->randomElement([1,0])
         ];
     }
 }

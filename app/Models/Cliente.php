@@ -18,8 +18,8 @@ class Cliente extends Model
         'ap_paterno',
         'ap_materno',
         'telefono',
-        'direccion',
-        'estado'
+        'direccion'
+        //'estado'
     ];
 
 }

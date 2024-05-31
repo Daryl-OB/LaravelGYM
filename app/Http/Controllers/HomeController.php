@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Categoria;
+use App\Models\Cliente;
+use App\Models\Metodo;
+use App\Models\Promocion;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,6 +27,23 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        //Contando el total de categorias con estado 1 = activo
+        $totalCategoriasActivas = Categoria::where('estado', 1)->count();
+
+        //Contando el total de promociones con estado 1 = activo
+        $totalPromocionesActivas = Promocion::where('estado', 1)->count();
+
+        //Contando el total de clientes
+        $totalClientes = Cliente::count();
+
+        //Contando el total de clientes
+        $totalMetodos = Metodo::count();
+
+        return view('home', compact(
+            'totalCategoriasActivas',
+            'totalPromocionesActivas',
+            'totalClientes',
+            'totalMetodos'
+        ));
     }
 }
