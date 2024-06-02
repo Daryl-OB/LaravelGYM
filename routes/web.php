@@ -4,6 +4,7 @@ use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\MetodoController;
 use App\Http\Controllers\PromocionController;
+use App\Http\Controllers\SubscripcionController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -49,4 +50,9 @@ Route::controller(ClienteController::class)->group(function (){
 //Rutas de metodo
 Route::controller(MetodoController::class)->group(function (){
     Route::get('gimnasio/metodos', 'index')->name('metodos.index');
+});
+
+//Rutas de subscripcion
+Route::controller(SubscripcionController::class)->group(function (){
+    Route::get('gimnasio/subscripciones', 'index')->name('subscripciones.index');
 });

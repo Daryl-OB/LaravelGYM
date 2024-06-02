@@ -15,7 +15,12 @@
 @section('content')
 
     
-    <div class="row mb-5">
+    <div class="row">
+
+        <div class="col-12 mb-2">
+            <h3 class="display-5 bg-dark py-2 px-3 rounded">Mi gimnasio</h3>
+        </div>
+
         {{-- Total de categorias --}}
         <div class="col-md-4">
             <div class="small-box bg-gradient-secondary">
@@ -84,13 +89,13 @@
             {{-- Total de inscripciones (que no vencen aún) --}}
             <div class="small-box bg-gradient-warning">
                 <div class="inner">
-                    <h3>999</h3>
-                    <p>Inscripciones vigentes</p>
+                    <h3>{{$totalSubscripciones}}</h3>
+                    <p>Subscripciones vigentes</p>
                 </div>
                 <div class="icon">
                     <i class="fas fa-clipboard"></i>
                 </div>
-                <a href="#" class="small-box-footer">
+                <a href="{{route('subscripciones.index')}}" class="small-box-footer">
                     Ver todas <i class="fas fa-arrow-circle-right"></i>
                 </a>
             </div>
@@ -98,7 +103,7 @@
 
     </div>
 
-    <div class="row mb-5">
+    {{-- <div class="row">
         <div class="col-md-4">
             <div class="card">
                 <img src="https://thumbs.dreamstime.com/b/man-weight-training-equipment-sport-gym-22843139.jpg"
@@ -132,9 +137,9 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 
-    <div class="row">
+    {{-- <div class="row">
         <div class="col-md-3">
             <div class="info-box">
                 <span class="info-box-icon bg-info"><i class="far fa-envelope"></i></span>
@@ -172,6 +177,6 @@
 
             </div>
         </div>
-    </div>
+    </div> --}}
 
 @stop

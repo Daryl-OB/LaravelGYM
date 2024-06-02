@@ -6,6 +6,7 @@ use App\Models\Categoria;
 use App\Models\Cliente;
 use App\Models\Metodo;
 use App\Models\Promocion;
+use App\Models\Subscripcion;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -39,11 +40,15 @@ class HomeController extends Controller
         //Contando el total de clientes
         $totalMetodos = Metodo::count();
 
+        //Contando las subscripciones vigentes
+        $totalSubscripciones = Subscripcion::where('estado', 1)->count();
+
         return view('home', compact(
             'totalCategoriasActivas',
             'totalPromocionesActivas',
             'totalClientes',
-            'totalMetodos'
+            'totalMetodos',
+            'totalSubscripciones',
         ));
     }
 }

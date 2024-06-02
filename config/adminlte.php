@@ -338,8 +338,8 @@ return [
             'icon' => 'fas fa-users',
         ],
         [
-            'text' => 'Inscripciones',
-            'url' => 'gimnasio/inscripciones',
+            'text' => 'Subscripciones',
+            'url' => 'gimnasio/subscripciones',
             'icon' => 'fas fa-clipboard',
         ],
         ['header' => 'Zona de tienda'],

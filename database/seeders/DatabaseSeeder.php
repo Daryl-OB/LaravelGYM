@@ -6,6 +6,7 @@ use App\Models\Categoria;
 use App\Models\Cliente;
 use App\Models\Metodo;
 use App\Models\Promocion;
+use App\Models\Subscripcion;
 use App\Models\User;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -24,5 +25,6 @@ class DatabaseSeeder extends Seeder
         Promocion::factory()->count(30)->create();
         Metodo::factory()->count(30)->create();
         Cliente::factory()->count(30)->create();
+        Subscripcion::factory()->count(30)->create();
     }
 }
