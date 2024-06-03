@@ -52,7 +52,7 @@ Route::controller(MetodoController::class)->group(function (){
     Route::get('gimnasio/metodos', 'index')->name('metodos.index');
 });
 
-//Rutas de subscripcion
+//Rutas de subscripciones
 Route::controller(SubscripcionController::class)->group(function (){
     Route::get('gimnasio/subscripciones', 'index')->name('subscripciones.index');
 });
