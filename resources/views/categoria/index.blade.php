@@ -66,7 +66,7 @@
                 //url para obtener los registros de la tabla categoria en formato json
                 ajax: {
                     url: "{{ route('datatables.categoria') }}",
-                    type: 'GET',
+                    type: "GET",
                     dataSrc: ''
                 },
                 //claves de los datos del json

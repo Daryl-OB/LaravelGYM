@@ -6,6 +6,11 @@
     <h1>Promociones</h1>
 @stop
 
+@section('css')
+    {{-- Incluye el CSS de los botones de DataTables --}}
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.2.2/css/buttons.bootstrap4.min.css">
+@stop
+
 @section('content')
 
     {{-- botón de crear nuevo --}}
@@ -24,7 +29,7 @@
 
     {{-- tabla donde se muestran los registros de la base de datos --}}
     <div class="table-responsive mt-3">
-        <table class="table table-hover">
+        <table class="table table-hover w-100" id="tablePromocion">
             <thead class="thead-dark">
                 <tr>
                     <th>Id</th>
@@ -35,49 +40,128 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($promociones as $promocion)
-                    <tr>
-                        <td>{{ $promocion->id }}</td>
-                        <td>{{ $promocion->nombre }}</td>
-                        <td>{{ $promocion->descripcion }}</td>
-                        <td class="text-center">
-                            @if ($promocion->estado == 1)
-                                <span class="badge badge-success">Activo</span>
-                            @else
-                                <span class="badge badge-danger">Inactivo</span>
-                            @endif
-                        </td>
-                        <td>
-                            <div class="btn-group" role="group" aria-label="Acciones">
-                                {{-- botón de editar --}}
-                                <a href="{{ route('promociones.edit', $promocion->id) }}" class="btn btn-warning mr-1 rounded"><i class="fas fa-edit"></i></a>
-                                
-                                {{--botón de eliminar --}}
-                                <form action="{{ route('promociones.destroy', $promocion->id) }}" method="POST" enctype="multipart/form-data">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger ml-1 rounded"><i class="fas fa-trash-alt"></i></button>
-                                </form>
-                            </div>
-                        </td>    
-                    </tr>
-                @endforeach
+                {{-- Registros de la tabla traidos con Ajax --}}
             </tbody>
         </table>
-    </div>
+    </div>  
+@stop
 
-    {{-- paginación de la tabla --}}
-    <div class="d-flex justify-content-center">
-        <div class="row">
-            <div class="col-12">
-                Mostrando 
-                {{ $promociones->firstItem() }} - {{ $promociones->lastItem() }} de {{ $promociones->total() }} registros
-            </div>
-            <div class="col-12">
-                {{ $promociones->links('pagination::bootstrap-4', ['only' => ['paginator']]) }}
-            </div>    
-        </div>
-    </div>
-    
-    
-@stop   
+
+@section('js')
+
+    {{-- Incluyendo los botones de DataTables --}}
+    <script src="https://cdn.datatables.net/buttons/2.2.2/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.bootstrap4.min.js"></script>
+    {{-- Incluyendo los botones específicos que desees utilizar --}}
+    <script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.print.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+
+    <script>
+        $(document).ready(function(){
+            $('#tablePromocion').DataTable({
+                //url para obtener los registros de la tabla categoria en formato json
+                ajax: {
+                    url: "{{ route('datatables.promocion') }}",
+                    type: "GET",
+                    dataSrc: '',
+                },
+                //claves de los datos del json
+                columns: [
+                    {data: 'id'},
+                    {data: 'nombre'},
+                    {data: 'descripcion'},
+                    {
+                        data: 'estado',
+                        render: function(data){
+                            if(data === 1){
+                                return `<span class="badge badge-success">Activo</span>`;
+                            }
+                            else{
+                                return `<span class="badge badge-danger">Inactivo</span>`
+                            }
+                        }
+                    },
+                    //columna extra para los botones de acción (editar y eliminar)
+                    {
+                        data: null,
+                        className: 'text-center',
+                        render: function(data){
+                            return `
+                                <div class="d-flex justify-content-center">
+                                    <a class="btn btn-warning rounded mr-1" href="{{ route('promociones.edit', '') }}/${data.id}">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+
+                                    <form action="{{ route('promociones.destroy', '') }}/${data.id}" method="POST" enctype="multipart/form-data">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger ml-1 rounded"><i class="fas fa-trash-alt"></i></button>
+                                    </form>  
+                                </div>
+                            `;
+                        },
+                    }
+                ],
+                //ordernar primera columna de forma descendente (mayor a menor)
+                "order": [[0, "desc"]],
+
+                //configuracion de la info predeterminada del datatable:
+                //la pasamos a español
+                "language": {
+                    "sProcessing": "Procesando...",
+                    "sLengthMenu": "Mostrar _MENU_ registros",
+                    "sZeroRecords": "No se encontraron resultados",
+                    "sEmptyTable": "Ningún dato disponible en esta tabla",
+                    "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                    "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                    "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                    "sInfoPostFix": "",
+                    "sSearch": "Buscar:",
+                    "sUrl": "",
+                    "sInfoThousands": ",",
+                    "sLoadingRecords": "Cargando...",
+                    "oPaginate": {
+                        "sFirst": "Primero",
+                        "sLast": "Último",
+                        "sNext": "Siguiente",
+                        "sPrevious": "Anterior"
+                    },
+                },
+                
+                //numero de registros por pagina
+                pageLength: 10,
+
+                //orden de los componentes (Buttons, filtering, processing, table, information, pagination)
+                dom: 'Bfrtip',
+
+                //botones integrados
+                buttons: [
+                    {
+                        extend: 'copy',
+                        text: '<span>Copiar <i class="fas fa-copy"></i></span>', //icono para el botón 'copy'
+                        className: 'btn btn-info'
+                    },
+                    {
+                        extend: 'excel',
+                        text: '<span>Excel <i class="fas fa-file-excel"></i></span>', //icono para el botón 'excel'
+                        className: 'btn btn-success'
+                    },
+                    {
+                        extend: 'pdf',
+                        text: '<span>PDF <i class="fas fa-file-pdf"></i></span>', //icono para el botón 'pdf'
+                        className: 'btn btn-danger'
+                    },
+                    {
+                        extend: 'print',
+                        text: '<span>Imprimir <i class="fas fa-print"></i></span>', //icono para el botón 'print'
+                    },
+                ],
+            });
+        });
+    </script>
+@stop
+
+
