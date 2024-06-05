@@ -37,7 +37,7 @@ Route::controller(CategoriaController::class)->group(function (){
     Route::delete('gimnasio/categoria/delete/{id}', 'destroy')->name('categorias.destroy');
 });
 
-//Rutas de promocion
+//Rutas de promociones
 Route::controller(PromocionController::class)->group(function (){
     Route::get('gimnasio/promociones', 'index')->name('promociones.index');
 });
