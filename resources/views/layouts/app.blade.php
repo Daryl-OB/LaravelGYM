@@ -15,6 +15,18 @@
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+
+    <!-- Plugins CSS -->
+    @foreach(config('adminlte.plugins') as $plugin)
+        @if($plugin['active'] && isset($plugin['files']))
+            @foreach($plugin['files'] as $file)
+                @if($file['type'] == 'css')
+                    <link rel="stylesheet" href="{{ $file['location'] }}">
+                @endif
+            @endforeach
+        @endif
+    @endforeach
+
 </head>
 <body>
     <div id="app">
@@ -76,6 +88,17 @@
             @yield('content')
         </main>
     </div>
+
+    <!-- Plugins JS -->
+    @foreach(config('adminlte.plugins') as $plugin)
+        @if($plugin['active'] && isset($plugin['files']))
+            @foreach($plugin['files'] as $file)
+                @if($file['type'] == 'js')
+                    <script src="{{ $file['location'] }}"></script>
+                @endif
+            @endforeach
+        @endif
+    @endforeach
 
 </body>
 </html>

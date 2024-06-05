@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\DatatableController;
 use App\Http\Controllers\MetodoController;
 use App\Http\Controllers\PromocionController;
 use App\Http\Controllers\SubscripcionController;
@@ -16,6 +17,11 @@ Auth::routes();
 
 //Ruta de la vista home
 Route::get('gimnasio', [App\Http\Controllers\HomeController::class, 'index'])->name('gimnasio');
+
+//Rutas de los Datatables
+Route::controller(DatatableController::class)->group(function(){
+    Route::get('datatable/categoria', 'dataCategoria')->name('datatables.categoria');
+});
 
 //Rutas de categoria
 Route::controller(CategoriaController::class)->group(function (){
