@@ -8,11 +8,13 @@
 
 @section('content')
 
+    {{-- boton de crear nuevo --}}
     <div class="">
         <a href="{{ route('categorias.create') }}" class="btn btn-primary"><i class="fas fa-plus-circle"></i> Nueva
             categoria</a>
     </div>
 
+    {{-- alerta que se muestra luego de realizar una acción (crear, editar, eliminar) --}}
     @if (session('success'))
         <div class="alert alert-success alert-dismissible mt-3">
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -21,7 +23,7 @@
         </div>
     @endif
 
-
+    {{-- tabla donde de muestran los registros de la base de datos --}}
     <div class="table-responsive mt-3">
         <table class="table table-hover">
             <thead class="thead-dark">
@@ -49,14 +51,20 @@
                         <td>
                             <div class="d-flex justify-content-center">
                                 <div class="btn-group" role="group" aria-label="Acciones">
+
+                                    {{-- boton de editar --}}
                                     <a href="{{ route('categorias.edit', $categoria->id) }}"
                                         class="btn btn-warning mr-1 rounded"><i class="fas fa-edit"></i></a>
-                                    <!-- Button abrit modal eliminar -->
-                                    <button type="button" id="" class="btn btn-danger ml-1 rounded btnEliminar"
-                                        data-toggle="modal" data-target="#modalEliminarCategoria"
-                                        data-nombre="{{ $categoria->nombre }}">
-                                        <i class="fas fa-trash-alt"></i>
-                                    </button>
+                                    
+                                    {{-- boton de eliminar --}}
+                                    <form action="{{ route('categorias.destroy', $categoria->id) }}" method="POST" enctype="multipart/form-data">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button class="btn btn-danger ml-1 rounded" type="submit">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                    </form>
+                                
                                 </div>
                             </div>     
                         </td>
@@ -66,57 +74,17 @@
         </table>
     </div>
 
+    {{-- paginacion de la tabla --}}
     <div class="d-flex justify-content-center">
-        <div>
-            <p>Mostrando {{ $categorias->firstItem() }} - {{ $categorias->lastItem() }} de {{ $categorias->total() }} registros
-            </p>
-            {{ $categorias->links('pagination::bootstrap-4', ['only' => ['paginator']]) }}
-        </div>
-    </div>
-
-    <!-- Modal Eliminar Categoria -->
-    <div class="modal fade" id="modalEliminarCategoria" tabindex="-1" role="dialog"
-        aria-labelledby="modalEliminarCategoriaCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header bg-danger">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Eliminar categoria</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <p>¿Estás seguro que deseas eliminar la categoria? <br> <strong class="text-uppercase"
-                            id="nombreCategoria">{{-- Nombre de la categoria --}}</strong></p>
-                </div>
-
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    {{-- FORMULARIO PARA MANDAR EL ID A ELIMNAR --}}
-                    <form action="" method="POST">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-danger">Eliminar</button>
-                    </form>
-                </div>
+        <div class="row">
+            <div class="col-12">
+                Mostrando 
+                {{ $categorias->firstItem() }} - {{ $categorias->lastItem() }} de {{ $categorias->total() }} registros
             </div>
+            <div class="col-12">
+                {{ $categorias->links('pagination::bootstrap-4', ['only' => ['paginator']]) }}
+            </div>    
         </div>
     </div>
-    {{-- Fin del modal eliminar --}}
 
-@stop
-
-@section('js')
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var botonesEliminar = document.querySelectorAll('.btnEliminar');
-
-            botonesEliminar.forEach(function(boton) {
-                boton.addEventListener('click', function() {
-                    var nombreCategoria = this.getAttribute('data-nombre');
-                    document.getElementById('nombreCategoria').textContent = nombreCategoria;
-                });
-            });
-        });
-    </script>
 @stop

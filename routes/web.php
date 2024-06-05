@@ -19,27 +19,22 @@ Route::get('gimnasio', [App\Http\Controllers\HomeController::class, 'index'])->n
 
 //Rutas de categoria
 Route::controller(CategoriaController::class)->group(function (){
-    //ruta vista principal categoria
     Route::get('gimnasio/categorias', 'index')->name('categorias.index'); 
-
-    //ruta vista create categoria
     Route::get('gimnasio/categorias/create', 'create')->name('categorias.create'); 
-
-    //ruta para recibir datos de un formulario y crear una categoria
     Route::post('gimnasio/categorias/store', 'store')->name('categorias.store');
-
-    //ruta para la vista editar categoria
     Route::get('gimnasio/categorias/edit/{id}', 'edit')->name('categorias.edit'); 
-    
-    //ruta para recibir datos de un formulario y actualizar la categoria
     Route::put('gimnasio/categorias/update', 'update')->name('categorias.update'); 
-    
     Route::delete('gimnasio/categoria/delete/{id}', 'destroy')->name('categorias.destroy');
 });
 
 //Rutas de promociones
 Route::controller(PromocionController::class)->group(function (){
     Route::get('gimnasio/promociones', 'index')->name('promociones.index');
+    Route::get('gimnasio/promociones/create', 'create')->name('promociones.create');
+    Route::post('gimnasio/promociones/store', 'store')->name('promociones.store');
+    Route::get('gimnasio/promociones/edit/{id}', 'edit')->name('promociones.edit');
+    Route::put('gimnasio/promociones/update', 'update')->name('promociones.update');
+    Route::delete('gimnasio/promociones/delete/{id}', 'destroy')->name('promociones.destroy');
 });
 
 //Rutas de cliente
