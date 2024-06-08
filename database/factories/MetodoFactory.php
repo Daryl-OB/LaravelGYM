@@ -19,6 +19,7 @@ class MetodoFactory extends Factory
         return [
             'nombre' => $this->faker->sentence(),
             'descripcion' => $this->faker->paragraph(),
+            'image_path' => 'image.jpg', //escribe "image.jpg" en la columna
             'estado' => $this->faker->randomElement([1,0])
         ];
     }

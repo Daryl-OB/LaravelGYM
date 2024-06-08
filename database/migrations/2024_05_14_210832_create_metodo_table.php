@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('nombre');
             $table->text('descripcion');
+            $table->string('image_path')->nullable(); //agregar columna image_path
             $table->integer('estado')->default(1);
             $table->timestamps();
         });

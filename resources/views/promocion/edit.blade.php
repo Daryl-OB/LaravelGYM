@@ -14,6 +14,15 @@
             {{-- BOTON DE REGRESAR A LA VISTA PRINCIPAL DE CATEGORIAS --}}
             <a href="{{ route('promociones.index') }}" class="btn btn-warning mt-3"><i class="fas fa-reply"></i> Volver</a>
 
+            {{-- Mensaje de error en caso falle el agregado --}}
+            @if (session('error'))
+                <div class="alert alert-danger alert-dismissible mt-3">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    <i class="icon fas fa-check"></i>
+                    {{ session('error') }}
+                </div>
+            @endif
+
             <div class="title mt-3">
                 <h3 class="tile-title">Editar promoción</h3>
                 <div class="tile-body">

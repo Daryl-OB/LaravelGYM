@@ -22,6 +22,7 @@ Route::get('gimnasio', [App\Http\Controllers\HomeController::class, 'index'])->n
 Route::controller(DatatableController::class)->group(function(){
     Route::get('datatable/categoria', 'dataCategoria')->name('datatables.categoria');
     Route::get('datatable/promocion', 'dataPromocion')->name('datatables.promocion');
+    Route::get('datatable/metodo', 'dataMetodo')->name('datatables.metodo');
 });
 
 //Rutas de categoria

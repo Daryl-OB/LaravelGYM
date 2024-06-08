@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Categoria;
+use App\Models\Metodo;
 use App\Models\Promocion;
 use Illuminate\Http\Request;
 
@@ -18,5 +19,10 @@ class DatatableController extends Controller
     public function dataPromocion(){
         $promociones = Promocion::all(['id', 'nombre', 'descripcion', 'estado']);
         return json_encode($promociones);
+    }
+
+    public function dataMetodo(){
+        $metodos = Metodo::all(['id', 'nombre', 'descripcion', 'image_path','estado']);
+        return json_encode($metodos);
     }
 }

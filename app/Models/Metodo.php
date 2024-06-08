@@ -15,6 +15,7 @@ class Metodo extends Model
     [
         'nombre',
         'descripcion',
+        'image_path',
         'estado'
     ];
 
